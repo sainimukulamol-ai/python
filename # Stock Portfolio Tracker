@@ -1,0 +1,42 @@
+
+
+# Hardcoded stock prices
+stock_prices = {
+    "APPLE": 180,
+    "TESLA": 250,
+    "GOOGLE": 150,
+    "MICROSOFT": 320,
+    "AMAZON": 140
+}
+
+total_investment = 0
+
+# Ask user how many different stocks they own
+n = int(input("Enter the number of stocks: "))
+
+# Open a text file to save the portfolio
+file = open("portfolio.txt", "w")
+file.write("Stock Portfolio Summary\n")
+file.write("-------------------------\n")
+
+for i in range(n):
+    stock = input("\nEnter stock name (APPLE, TESLA, GOOGLE, MICROSOFT, AMAZON): ").upper()
+    quantity = int(input("Enter quantity: "))
+
+    if stock in stock_prices:
+        value = stock_prices[stock] * quantity
+        total_investment += value
+
+        print(f"{stock}: {quantity} shares × ${stock_prices[stock]} = ${value}")
+
+        file.write(f"{stock} - Quantity: {quantity}, Value: ${value}\n")
+    else:
+        print("Stock not found!")
+        file.write(f"{stock} - Invalid Stock\n")
+
+print("\nTotal Investment Value = $", total_investment)
+file.write(f"\nTotal Investment Value = ${total_investment}")
+
+file.close()
+
+print("Portfolio saved successfully in 'portfolio.txt'")
